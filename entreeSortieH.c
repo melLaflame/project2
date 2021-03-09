@@ -1,13 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "entreeSortieLC.h"
-#include "biblioLC.h"
+#include "entreeSortieH.h"
+#include "biblioH.h"
 
-//Q1.3
-
-Biblio* charger_n_entrees(char* nomfic, int n){
+BiblioH* charger_n_entreesH(char* nomfic, int n,int m){
     FILE* fic = fopen(nomfic,"r");
-    Biblio* new_biblio = creer_biblio();
+    BiblioH* new_biblio = creer_biblioH(m);
 
     int i;
     int num;
@@ -20,18 +18,21 @@ Biblio* charger_n_entrees(char* nomfic, int n){
             printf("erreur de lecture");
             return NULL;
         }
-        inserer_en_tete(new_biblio,num,titre,auteur);
+        inserer(new_biblio,num,titre,auteur);
     }
     fclose(fic);
     return new_biblio;
 }
 
-void enregistrer_biblio(Biblio *b, char* nomfic){
+void enregistrer_biblioH(BiblioH *b, char* nomfic){
     FILE* fic = fopen(nomfic,"w");
-    Livre* tmp = b->L;
-    while(tmp != NULL){
-        fprintf(fic,"%d %s %s\n",tmp->num,tmp->titre,tmp->auteur);
-        tmp = tmp->suiv;
+    int i;
+    for(i=0;i<b->m;i++){
+        LivreH* tmp = (b->T)[i];
+        while(tmp!=NULL){
+            fprintf(fic,"%d %s %s\n",tmp->num,tmp->titre,tmp->auteur);
+            tmp = tmp->suivant;
+        }
     }
     fclose(fic);
 }

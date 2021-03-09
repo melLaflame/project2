@@ -3,6 +3,10 @@
 #include <string.h>
 #include "biblioLC.h"
 
+//Exercice 1
+
+//Q1.2
+
 Livre* creer_livre(int num,char* titre,char* auteur){
     Livre* new_livre = (Livre*)malloc(sizeof(Livre));
     new_livre->titre = strdup(titre);
@@ -35,6 +39,8 @@ void inserer_en_tete(Biblio* b,int num,char* titre,char* auteur){
     b->L = new_livre;
 }
 
+//Q1.6
+
 void afficher_Livre(Livre* livre){
     printf("%d %s %s",livre->num,livre->titre,livre->auteur);
 }
@@ -65,7 +71,7 @@ Livre* recherche_ouvrage_titre(Biblio* bibli, char* titre){
 }
 
 Biblio* recherche_ouvrage_auteur(Biblio* bibli, char* auteur){
-    Biblio* new_biblio = creer_biblio();
+    Biblio* new_biblio = creer_biblio(bibli);
     Livre* bib = bibli->L;
     while(bib != NULL){
         if(strcmp(bib->auteur,auteur)==0){
@@ -118,3 +124,25 @@ Biblio* fusion_bibliotheque(Biblio* biblio1, Biblio* biblio2){
     return biblio1;
 }
     
+Biblio* exemplaire(Biblio* biblio){
+    Biblio * bib = creer_biblio();
+    Livre* L1 = biblio -> L;
+    Livre* L2 = biblio -> L;
+    int i = 0;
+    while(L1->suiv!=NULL){
+        while(L2->suiv!=NULL){
+            if(strcmp(L1->auteur,L2->auteur)==0 && strcmp(L1->titre,L2->titre)==0){
+                if(i == 0){
+                    inserer_en_tete(bib,L1->num,L1->auteur,L1->titre);
+                    i=1;
+                }
+                inserer_en_tete(bib,L2->num,L2->auteur,L2->titre);
+                L2=L2->suiv;
+            }
+            L2=L2->suiv;
+        }
+        i=0;
+        L1=L1->suiv;
+    }
+    return bib;
+}

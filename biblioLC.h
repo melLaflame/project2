@@ -23,6 +23,6 @@ Livre* recherche_ouvrage_num(Biblio* bibli, int num);
 Livre* recherche_ouvrage_titre(Biblio* bibli, char* titre);
 Biblio* recherche_ouvrage_auteur(Biblio* bibli, char* auteur);
 void supression_ouvrage(Biblio* bibli, int num, char* titre, char* auteur);
-
+Biblio* exemplaire(Biblio* biblio);
 
 #endif
